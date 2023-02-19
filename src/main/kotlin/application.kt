@@ -1,42 +1,36 @@
 import java.io.File
 
 fun main() {
-
     val elves = parseInput()
-
-    elves.forEach { elf ->
-        println("$elf \n")
-    }
-
+    val elfWithMostCalories = elves.maxByOrNull { it.getAllCalories() }
+    println("$elfWithMostCalories\nThis is the elf that carries the most calories in the group.\nHe carries ${elfWithMostCalories?.getAllCalories()} calories with him.")
 }
 
-/***
- * Parses Input Textfile and creates elf objects with lists of calories
- */
 private fun parseInput(): List<Elf> {
     val filePath = "src/main/resources/input.txt"
-    var caloryList = mutableListOf<Int>()
-    var allElves = mutableListOf<Elf>()
+    val caloryList = mutableListOf<Int>()
+    val allElves = mutableListOf<Elf>()
     var elfNameCounter = 0
 
     File(filePath).forEachLine { line ->
-        if (!(line.isBlank())) {
+        if (line.isNotBlank()) {
             caloryList.add(line.toInt())
         } else {
+            elfNameCounter++
             createNewElf(elfNameCounter, allElves, caloryList)
         }
     }
 
     if (caloryList.isNotEmpty()) {
+        elfNameCounter++
         createNewElf(elfNameCounter, allElves, caloryList)
     }
 
     return allElves
 }
 
-private fun createNewElf(elfNameCounter: Int, allElves: MutableList<Elf>, caloryList: MutableList<Int>): Int {
-    val newElfName = "Elf ${elfNameCounter + 1}"
+private fun createNewElf(elfNameCounter: Int, allElves: MutableList<Elf>, caloryList: MutableList<Int>) {
+    val newElfName = "Elf ${elfNameCounter}"
     allElves.add(Elf(newElfName, caloryList.toList()))
     caloryList.clear()
-    return elfNameCounter + 1
 }
