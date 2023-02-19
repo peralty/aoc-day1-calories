@@ -2,8 +2,21 @@ import java.io.File
 
 fun main() {
     val elves = parseInput()
-    val elfWithMostCalories = elves.maxByOrNull { it.getAllCalories() }
-    println("$elfWithMostCalories\nThis is the elf that carries the most calories in the group.\nHe carries ${elfWithMostCalories?.getAllCalories()} calories with him.")
+    val elvesSortedByHighestCalories = elves.sortedByDescending { it.getAllCalories() }
+    val elfWithHighestCalories = elvesSortedByHighestCalories[0]
+    val elfWithSecondHighestCalories = elvesSortedByHighestCalories[1]
+    val elfWithThirdHighestCalories = elvesSortedByHighestCalories[2]
+    val totalTopThreeCalories = elfWithHighestCalories.getAllCalories() + elfWithSecondHighestCalories.getAllCalories() + elfWithThirdHighestCalories.getAllCalories()
+
+    println("--------------------------------------------------------------")
+    println("$elfWithHighestCalories\nThis is the elf that carries the most calories with him.\nHe is carrying ${elfWithHighestCalories.getAllCalories()} calories.")
+    println("--------------------------------------------------------------")
+    println("$elfWithSecondHighestCalories\nThis is the elf that carries the second most calories with him.\nHe is carrying ${elfWithSecondHighestCalories.getAllCalories()} calories.")
+    println("--------------------------------------------------------------")
+    println("$elfWithThirdHighestCalories\nThis is the elf that carries the most calories with him.\nHe is carrying ${elfWithThirdHighestCalories.getAllCalories()} calories.")
+    println("--------------------------------------------------------------")
+    println("In total the top three elves carry $totalTopThreeCalories calories.")
+    println("--------------------------------------------------------------")
 }
 
 private fun parseInput(): List<Elf> {
