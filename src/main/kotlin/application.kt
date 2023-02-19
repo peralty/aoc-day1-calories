@@ -30,7 +30,7 @@ private fun parseInput(): List<Elf> {
 }
 
 private fun createNewElf(elfNameCounter: Int, allElves: MutableList<Elf>, caloryList: MutableList<Int>) {
-    val newElfName = "Elf ${elfNameCounter}"
+    val newElfName = "Elf $elfNameCounter"
     allElves.add(Elf(newElfName, caloryList.toList()))
     caloryList.clear()
 }
